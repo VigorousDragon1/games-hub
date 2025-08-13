@@ -14,6 +14,7 @@ function GameCard({ game }: Props) {
       overflow="hidden"
       mb={4}
       boxSize={300}
+      width={"300px"}
     >
       <Image src={game.background_image} alt={game.name} />
       <Box p="4">
