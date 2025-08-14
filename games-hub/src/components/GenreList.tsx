@@ -2,10 +2,11 @@ import { HStack, List, ListItem, Image, Spinner, Link } from "@chakra-ui/react";
 import useGenres, { type Genre } from "../hooks/useGenres";
 
 interface  Props{
-  onClick:(genre:Genre)=>void
+  onClick:(genre:Genre)=>void;
+  selectedGenre:Genre |null
 }
 
-function GenreList({onClick}:Props) {
+function GenreList({onClick,selectedGenre}:Props) {
   const { genres, loading, error } = useGenres();
   if (error) return null;
   if (loading) return <Spinner padding={"5px"} margin={"10px"} />;
@@ -20,6 +21,7 @@ function GenreList({onClick}:Props) {
               src={genre.image_background}
             />
             <Link
+            fontWeight={genre.id===selectedGenre?.id?'bold':'normal'}
               onClick={() => onClick(genre)}
               variant={"underline"}
               border={"none"}
