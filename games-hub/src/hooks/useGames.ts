@@ -23,35 +23,37 @@ interface FetchGamesRes {
   results: Games[];
 }
 
-const useGames = (selectedGenre?:Genre|null) => {
+const useGames = (selectedGenre?:Genre|null , selectedPlatform?:Platform|null) => {
   const [games, setGames] = useState<Games[]>([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    const controller = new AbortController()
-    setLoading(true)
-    apiClient
-      .get<FetchGamesRes>("/games", { signal: controller.signal,  params: selectedGenre ? { genres: selectedGenre.id } : {} })
-      .then((res) => {
+ useEffect(() => {
+  const controller = new AbortController();
+  setLoading(true);
 
-        setGames(res.data.results)
-        setLoading(false)
-      })
-      .catch((err) => {
-        if (err instanceof CanceledError) return
+  apiClient
+    .get<FetchGamesRes>("/games", {
+      signal: controller.signal,
+      params: {
+        ...(selectedGenre ? { genres: selectedGenre.id } : {}),
+        ...(selectedPlatform ? { platforms: selectedPlatform.id } : {})
+      }
+    })
+    .then((res) => {
+      setGames(res.data.results);
+      setLoading(false);
+    })
+    .catch((err) => {
+      if (err instanceof CanceledError) return;
+      setError(err.message);
+      setLoading(false);
+    });
 
-        setError(err.message)
-        setLoading(false)
-      });
+  return () => controller.abort();
+}, [selectedGenre, selectedPlatform]);
 
-    return () => controller.abort()
-  },[selectedGenre]);
-
-//  deps ? [...deps, selectedGenre] : 
-// deps ? [...deps, selectedGenre] : [selectedGenre]
-
-  return { games, error ,loading}
+return { games, error, loading };
 }
 
 export default useGames
