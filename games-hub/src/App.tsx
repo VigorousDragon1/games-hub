@@ -6,6 +6,7 @@ import { useState } from "react";
 import type { Genre } from "./hooks/useGenres";
 import PlatformDropDown from "./components/PlatformDropDown";
 import type Platform from "./hooks/usePlatforms";
+import SortSelector from "./components/SortSelector";
 function App() {
   const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
   const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(
@@ -32,10 +33,16 @@ function App() {
 
       <GridItem area="main">
         <PlatformDropDown
-        selectedPlatform={selectedPlatform}
+          selectedPlatform={selectedPlatform}
           oonClick={(platform) => setSelectedPlatform(platform)}
         ></PlatformDropDown>
-        <GameGrid selectedPlatform={selectedPlatform} selectedGenre={selectedGenre}></GameGrid>
+
+      <SortSelector/>
+
+        <GameGrid
+          selectedPlatform={selectedPlatform}
+          selectedGenre={selectedGenre}
+        ></GameGrid>
       </GridItem>
     </Grid>
   );
