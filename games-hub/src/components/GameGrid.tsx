@@ -9,10 +9,11 @@ import type Platform from "@/hooks/usePlatforms";
 interface Props {
   selectedGenre: Genre | null;
   selectedPlatform: Platform | null;
+  selectedOrder:string
 }
 
-function GameGrid({ selectedGenre,selectedPlatform }: Props) {
-  const { games, error, loading } = useGames(selectedGenre, selectedPlatform);
+function GameGrid({ selectedGenre,selectedPlatform,selectedOrder }: Props) {
+  const { games, error, loading } = useGames(selectedGenre, selectedPlatform,selectedOrder);
 
   const skeleton = [1, 2, 3, 4, 5, 6, 7, 8];
 

@@ -12,6 +12,9 @@ function App() {
   const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(
     null
   );
+
+const [selectedOrder , setSelectedOrder]=useState<string>("")
+
   return (
     <Grid
       templateAreas={{
@@ -37,11 +40,12 @@ function App() {
           oonClick={(platform) => setSelectedPlatform(platform)}
         ></PlatformDropDown>
 
-      <SortSelector/>
+        <SortSelector selectedOrder={selectedOrder} onSelectOrder={(order)=>setSelectedOrder(order)} />
 
         <GameGrid
           selectedPlatform={selectedPlatform}
           selectedGenre={selectedGenre}
+          selectedOrder={selectedOrder}
         ></GameGrid>
       </GridItem>
     </Grid>
