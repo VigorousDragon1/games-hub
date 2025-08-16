@@ -13,7 +13,8 @@ function App() {
     null
   );
 
-const [selectedOrder , setSelectedOrder]=useState<string>("")
+  const [selectedOrder, setSelectedOrder] = useState<string>("");
+  const [search,setSearch]=useState<string>('')
 
   return (
     <Grid
@@ -24,7 +25,8 @@ const [selectedOrder , setSelectedOrder]=useState<string>("")
       templateColumns={{ base: "1fr", lg: "200px 1fr" }}
     >
       <GridItem area="nav">
-        <Navbar></Navbar>
+        <Navbar  onSearch={(searchText)=>setSearch(searchText)}>
+        </Navbar>
       </GridItem>
 
       <GridItem area="aside" display={{ base: "none", lg: "block" }}>
@@ -40,12 +42,16 @@ const [selectedOrder , setSelectedOrder]=useState<string>("")
           oonClick={(platform) => setSelectedPlatform(platform)}
         ></PlatformDropDown>
 
-        <SortSelector selectedOrder={selectedOrder} onSelectOrder={(order)=>setSelectedOrder(order)} />
+        <SortSelector
+          selectedOrder={selectedOrder}
+          onSelectOrder={(order) => setSelectedOrder(order)}
+        />
 
         <GameGrid
           selectedPlatform={selectedPlatform}
           selectedGenre={selectedGenre}
           selectedOrder={selectedOrder}
+          searchText={search}
         ></GameGrid>
       </GridItem>
     </Grid>
