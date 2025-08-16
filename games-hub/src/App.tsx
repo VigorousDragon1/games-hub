@@ -7,6 +7,7 @@ import type { Genre } from "./hooks/useGenres";
 import PlatformDropDown from "./components/PlatformDropDown";
 import type Platform from "./hooks/usePlatforms";
 import SortSelector from "./components/SortSelector";
+import GameHeading from "./components/GameHeading";
 function App() {
   const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
   const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(
@@ -14,7 +15,7 @@ function App() {
   );
 
   const [selectedOrder, setSelectedOrder] = useState<string>("");
-  const [search,setSearch]=useState<string>('')
+  const [search, setSearch] = useState<string>("");
 
   return (
     <Grid
@@ -25,8 +26,7 @@ function App() {
       templateColumns={{ base: "1fr", lg: "200px 1fr" }}
     >
       <GridItem area="nav">
-        <Navbar  onSearch={(searchText)=>setSearch(searchText)}>
-        </Navbar>
+        <Navbar onSearch={(searchText) => setSearch(searchText)}></Navbar>
       </GridItem>
 
       <GridItem area="aside" display={{ base: "none", lg: "block" }}>
@@ -37,6 +37,7 @@ function App() {
       </GridItem>
 
       <GridItem area="main">
+        <GameHeading selectedGenre={selectedGenre} selectedPlatform={selectedPlatform}/>
         <PlatformDropDown
           selectedPlatform={selectedPlatform}
           oonClick={(platform) => setSelectedPlatform(platform)}
