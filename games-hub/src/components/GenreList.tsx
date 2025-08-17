@@ -1,4 +1,4 @@
-import { HStack, List, ListItem, Image, Spinner, Link } from "@chakra-ui/react";
+import { HStack, List, ListItem, Image, Spinner, Link, Heading } from "@chakra-ui/react";
 import useGenres, { type Genre } from "../hooks/useGenres";
 
 interface  Props{
@@ -11,7 +11,9 @@ function GenreList({onClick,selectedGenre}:Props) {
   if (error) return null;
   if (loading) return <Spinner padding={"5px"} margin={"10px"} />;
   return (
-    <List.Root mt={"20px"}>
+    <>
+    <Heading as={"h1"} margin={"15px"}>Genres</Heading>
+    <List.Root mt={"20px"} border={"5px solid white"}>
       {genres.map((genre) => (
         <ListItem key={genre.id}>
           <HStack p={"10px"}>
@@ -32,6 +34,7 @@ function GenreList({onClick,selectedGenre}:Props) {
         </ListItem>
       ))}
     </List.Root>
+    </>
   );
 }
 

@@ -2,6 +2,7 @@ import { Box, Image, Heading, HStack, Card } from "@chakra-ui/react";
 import type { Games } from "../hooks/useGames";
 import PlatformIconsList from "./PlatformIconsList";
 import CriticScore from "./CriticScore";
+import Emoji from "./Emoji";
 interface Props {
   game: Games;
 }
@@ -18,7 +19,7 @@ function GameCard({ game }: Props) {
     >
       <Image src={game.background_image} alt={game.name} />
       <Box p="4">
-        <Heading size="md">{game.name}</Heading>
+      
 
         <HStack justifyContent={"space-between"}>
           {
@@ -29,6 +30,9 @@ function GameCard({ game }: Props) {
 
           <CriticScore score={game.metacritic}></CriticScore>
         </HStack>
+          <Heading mt={1} size="md">{game.name }  <Emoji  rating={game.rating_top}  /> </Heading>
+         
+
       </Box>
     </Card.Root>
   );
