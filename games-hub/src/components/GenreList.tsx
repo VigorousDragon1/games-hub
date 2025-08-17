@@ -13,7 +13,7 @@ function GenreList({onClick,selectedGenre}:Props) {
   return (
     <>
     <Heading as={"h1"} margin={"15px"}>Genres</Heading>
-    <List.Root mt={"20px"} border={"5px solid white"}>
+    <List.Root mt={"20px"} >
       {genres.map((genre) => (
         <ListItem key={genre.id}>
           <HStack p={"10px"}>

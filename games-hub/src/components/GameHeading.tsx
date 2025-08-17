@@ -11,7 +11,7 @@ interface Props{
 function GameHeading({selectedGenre,selectedPlatform}:Props) {
     const heading = `${selectedPlatform?.name||''} ${selectedGenre?.name||''} Games`
   return (
-<Heading as={"h1"}>{heading}</Heading>
+<Heading as={"h1"} mt={4} ml={10} mb={4}>{heading}</Heading>
   )
 }
 

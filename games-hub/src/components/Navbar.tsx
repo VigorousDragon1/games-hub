@@ -1,4 +1,4 @@
-import { HStack, Image, Text } from "@chakra-ui/react";
+import { HStack, Image} from "@chakra-ui/react";
 import logo from "../assets/image.png";
 import SearchInput from "./SearchInput";
 interface Props{
@@ -7,7 +7,7 @@ interface Props{
 }
 function Navbar({onSearch}:Props) {
   return (
-    <HStack  >
+    <HStack ml={5} mt={3} >
       <Image src={logo} boxSize="60px" />
       
       <SearchInput  onSearch={onSearch}   ></SearchInput>

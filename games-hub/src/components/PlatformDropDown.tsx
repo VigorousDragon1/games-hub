@@ -13,7 +13,7 @@ function PlatformDropDown({oonClick,selectedPlatform}:Props) {
   return (
     <Menu.Root>
       <Menu.Trigger asChild>
-        <Button size="sm" variant="outline" margin={"10px"}>
+        <Button size="sm" variant="outline" ml={"40px"} >
         {selectedPlatform?.name||'Platforms'}
         </Button>
       </Menu.Trigger>

@@ -14,14 +14,20 @@ function GameCard({ game }: Props) {
       borderRadius="lg"
       overflow="hidden"
       mb={4}
-      boxSize={300}
-      // width={"300px"}
-    >
-      <Image src={game.background_image} alt={game.name} />
-      <Box p="4">
-      
+      boxSize={"300px"}
+      ml={10}
 
-        <HStack justifyContent={"space-between"}>
+    // width={"300px"}
+    >
+      <Image
+        objectFit={"cover"}
+        src={game.background_image}
+        alt={game.name}
+        width="100%"
+        height="200px"
+      />
+      <Box p="4">
+        <HStack justifyContent={"space-between"} >
           {
             <PlatformIconsList
               platforms={game.parent_platforms.map((p) => p.platform)}
@@ -30,9 +36,9 @@ function GameCard({ game }: Props) {
 
           <CriticScore score={game.metacritic}></CriticScore>
         </HStack>
-          <Heading mt={1} size="md">{game.name }  <Emoji  rating={game.rating_top}  /> </Heading>
-         
-
+        <Heading mt={1} size="md">
+          {game.name} <Emoji rating={game.rating_top} />{" "}
+        </Heading>
       </Box>
     </Card.Root>
   );
