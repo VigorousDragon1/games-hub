@@ -1,7 +1,8 @@
 import apiClient from "@/services/api-client";
 import { CanceledError } from "axios";
 import { useEffect, useState } from "react";
-import type { Genre } from "./useGenres";
+
+import type { gameQuery } from "@/App";
 
 
 export interface Platform {
@@ -24,7 +25,7 @@ interface FetchGamesRes {
   results: Games[];
 }
 
-const useGames = (selectedGenre?:Genre|null , selectedPlatform?:Platform|null,selectedOrder?:string,searchText?:string) => {
+const useGames = (gameQuery:gameQuery) => {
   const [games, setGames] = useState<Games[]>([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false)
@@ -37,10 +38,10 @@ const useGames = (selectedGenre?:Genre|null , selectedPlatform?:Platform|null,se
     .get<FetchGamesRes>("/games", {
       signal: controller.signal,
       params: {
-        ...(selectedGenre ? { genres: selectedGenre.id } : {}),
-        ...(selectedPlatform ? { platforms: selectedPlatform.id } : {}),
-        ...(selectedOrder ? { ordering: selectedOrder } : {}), 
-       ...(searchText ? { search: searchText } : {})
+        ...(gameQuery.genre ? { genres: gameQuery.genre.id } : {}),
+        ...(gameQuery.platform? { platforms: gameQuery.platform.id } : {}),
+        ...(gameQuery.sortOrder ? { ordering: gameQuery.sortOrder } : {}), 
+       ...(gameQuery.searchText? { search: gameQuery.searchText } : {})
       }
     })
     .then((res) => {
@@ -54,7 +55,7 @@ const useGames = (selectedGenre?:Genre|null , selectedPlatform?:Platform|null,se
     });
 
   return () => controller.abort();
-}, [selectedGenre, selectedPlatform,selectedOrder,searchText]);
+}, [gameQuery]);
 
 return { games, error, loading };
 }
