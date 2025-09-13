@@ -1,31 +1,72 @@
 import useGames from "@/hooks/useGames";
 
-import { SimpleGrid, Text } from "@chakra-ui/react";
+import { Button, SimpleGrid, Spinner, Text } from "@chakra-ui/react";
 import GameCard from "./GameCard";
-import Loader from "./Loader";
 
 import type { gameQuery } from "@/App";
+import InfiniteScroll from "react-infinite-scroll-component";
+
+import GameCardContainer from "./ui/GameCardContainer";
+import GameCardSkeleton from "./ui/GameCardSkeleton";
+import React from "react";
 
 interface Props {
   gameQuery: gameQuery;
 }
-
 function GameGrid({ gameQuery }: Props) {
-  const { games, error, loading } = useGames(gameQuery);
+  const {
+    data,
+    error,
+    isLoading,
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
+  } = useGames(gameQuery);
 
-  const skeleton = [1, 2, 3, 4, 5, 6, 7, 8];
+  const skeleton = [1, 2, 3, 4, 5, 6];
+
+  if (error) return <Text>{error.message}</Text>;
+
+  const fetchedGamesCount =
+    data?.pages.reduce((total, page) => total + page.results.length, 0) ?? 0;
 
   return (
     <>
-      {error && <Text>{error}</Text>}
-      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4 }} spaceX={10}>
-        {loading && skeleton.map((sk) => <Loader key={sk} />)}
-        {games.map((game) => (
-          <GameCard key={game.id} game={game} />
+      <InfiniteScroll
+  dataLength={fetchedGamesCount}
+  hasMore={!!hasNextPage}
+  next={fetchNextPage}
+  loader={<Spinner />}
+>
+  <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4 }} spaceX={10}>
+    {isLoading &&
+      skeleton.map((sk) => (
+        <GameCardContainer key={sk}>
+          <GameCardSkeleton />
+        </GameCardContainer>
+      ))}
+
+    {data?.pages.map((page, index) => (
+      <React.Fragment key={index}>
+        {page.results.map((game) => (
+          <GameCardContainer key={game.id}>
+            <GameCard game={game} />
+          </GameCardContainer>
         ))}
-      </SimpleGrid>
+      </React.Fragment>
+    ))}
+  </SimpleGrid>
+</InfiniteScroll>
+
+
+      {hasNextPage && (
+        <Button onClick={() => fetchNextPage()} mt={4}>
+          {isFetchingNextPage ? "loading..." : "load more"}
+        </Button>
+      )}
     </>
   );
 }
+
 
 export default GameGrid;

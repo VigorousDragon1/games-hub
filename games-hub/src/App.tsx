@@ -17,13 +17,7 @@ import GameHeading from "./components/GameHeading";
  }
 
 function App() {
-  // const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
-  // const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(
-  //   null
-  // );
-
-  // const [selectedOrder, setSelectedOrder] = useState<string>("");
-  // const [search, setSearch] = useState<string>("");
+ 
 const [gameQuery , setGameQuery]=useState<gameQuery>({} as gameQuery)
   return (
     <Grid
