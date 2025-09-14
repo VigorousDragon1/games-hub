@@ -1,27 +1,34 @@
 import { Button, Menu, Portal, Text } from "@chakra-ui/react";
-import usePlatforms from "../hooks/usePlatforms";
-import type {Platform} from "../hooks/usePlatforms";
+import usePlatforms from "@/hooks/usePlatforms";
+import useGameQueryStore from "@/store";
 
-interface Props{
-    oonClick:(platform:Platform)=>void,
-    selectedPlatform:Platform|null
-}
+function PlatformDropDown() {
+  const { data, error } = usePlatforms();
+  const platformId = useGameQueryStore((s) => s.gameQuery.platformId);
+  const setPlatformId = useGameQueryStore((s) => s.setPlatformId);
 
-function PlatformDropDown({oonClick,selectedPlatform}:Props) {
-  const { data  ,error } = usePlatforms();
-if (error) return <Text>{error.message}</Text>
+  if (error) return <Text>{error.message}</Text>;
+
+  const selectedPlatform = data?.results.find((p) => p.id === platformId);
+
   return (
     <Menu.Root>
       <Menu.Trigger asChild>
-        <Button size="sm" variant="outline" ml={"40px"} >
-        {selectedPlatform?.name||'Platforms'}
+        <Button size="sm" variant="outline" ml="40px">
+          {selectedPlatform?.name || "Platforms"}
         </Button>
       </Menu.Trigger>
       <Portal>
         <Menu.Positioner>
           <Menu.Content>
             {data?.results.map((platform) => (
-              <Menu.Item onClick={()=>oonClick(platform)} value="#" key={platform.id}>{platform.name}</Menu.Item>
+              <Menu.Item
+                onClick={() => setPlatformId(platform.id)}
+                value="#"
+                key={platform.id}
+              >
+                {platform.name}
+              </Menu.Item>
             ))}
           </Menu.Content>
         </Menu.Positioner>
