@@ -7,7 +7,7 @@ export interface Platform {
   slug: string;
 }
 
-const usePlatform = () => {
+const usePlatforms = () => {
   return useQuery<FetchResponse<Platform>>({
     queryKey:['platform'],
     queryFn:()=>
@@ -16,4 +16,4 @@ const usePlatform = () => {
 
 
 };
-export default usePlatform
+export default usePlatforms

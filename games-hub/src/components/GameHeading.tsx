@@ -1,5 +1,5 @@
 import type { Genre } from "@/hooks/useGenres"
-import type Platform from "@/hooks/usePlatforms";
+import type {Platform }from "@/hooks/usePlatforms";
 import { Heading } from "@chakra-ui/react"
 
 interface Props{
