@@ -1,26 +1,19 @@
-import apiClient from "@/services/api-client";
-import { useEffect, useState } from "react";
+import apiClient, { type FetchResponse } from "@/services/api-client";
+import { useQuery } from "@tanstack/react-query";
 
-interface Platform {
+export interface Platform {
   id: number;
   name: string;
   slug: string;
 }
 
-const Platform = () => {
-  const [platforms, setPlatforms] = useState<Platform[]>([]);
-  const [error, setError] = useState("");
+const usePlatform = () => {
+  return useQuery<FetchResponse<Platform>>({
+    queryKey:['platform'],
+    queryFn:()=>
+      apiClient.get<FetchResponse<Platform>>('/platforms').then((res)=>res.data)
+  })
 
-  useEffect(() => {
-    apiClient
-      .get("/platforms/lists/parents")
-      .then((res) => {
-        setPlatforms(res.data.results);
-      })
-      .catch((err) => {
-        setError(err.message);
-      });
-  },[]);
-   return { platforms, error };
+
 };
-export default Platform
+export default usePlatform

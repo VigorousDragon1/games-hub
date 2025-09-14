@@ -7,14 +7,14 @@ interface  Props{
 }
 
 function GenreList({onClick,selectedGenre}:Props) {
-  const { genres, loading, error } = useGenres();
+  const { data , isLoading ,error } = useGenres();
   if (error) return null;
-  if (loading) return <Spinner padding={"5px"} margin={"10px"} />;
+  if (isLoading) return <Spinner padding={"5px"} margin={"10px"} />;
   return (
     <>
     <Heading as={"h1"} margin={"15px"}>Genres</Heading>
     <List.Root mt={"20px"} >
-      {genres.map((genre) => (
+      {data?.results.map((genre) => (
         <ListItem key={genre.id}>
           <HStack p={"10px"}>
             <Image

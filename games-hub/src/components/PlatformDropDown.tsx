@@ -1,6 +1,6 @@
-import { Button, Menu, Portal } from "@chakra-ui/react";
+import { Button, Menu, Portal, Text } from "@chakra-ui/react";
 import usePlatforms from "../hooks/usePlatforms";
-import type Platform from "../hooks/usePlatforms";
+import type {Platform} from "../hooks/usePlatforms";
 
 interface Props{
     oonClick:(platform:Platform)=>void,
@@ -8,8 +8,8 @@ interface Props{
 }
 
 function PlatformDropDown({oonClick,selectedPlatform}:Props) {
-  const { platforms } = usePlatforms();
-
+  const { data  ,error } = usePlatforms();
+if (error) return <Text>{error.message}</Text>
   return (
     <Menu.Root>
       <Menu.Trigger asChild>
@@ -20,7 +20,7 @@ function PlatformDropDown({oonClick,selectedPlatform}:Props) {
       <Portal>
         <Menu.Positioner>
           <Menu.Content>
-            {platforms.map((platform) => (
+            {data?.results.map((platform) => (
               <Menu.Item onClick={()=>oonClick(platform)} value="#" key={platform.id}>{platform.name}</Menu.Item>
             ))}
           </Menu.Content>
