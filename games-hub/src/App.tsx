@@ -8,7 +8,7 @@ import SortSelector from "./components/SortSelector";
 
 
 function App() {
- 
+
   return (
     <Grid
       templateAreas={{
@@ -23,22 +23,22 @@ function App() {
 
       <GridItem area="aside" display={{ base: "none", lg: "block" }}>
         <GenreList
-        
+
         />
       </GridItem>
 
       <GridItem area="main">
         <GameHeading />
         <PlatformDropDown
-         
+
         ></PlatformDropDown>
 
         <SortSelector
-        
+
         />
 
         <GameGrid
-        
+
         ></GameGrid>
       </GridItem>
     </Grid>
