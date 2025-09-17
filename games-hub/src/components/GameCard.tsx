@@ -3,6 +3,7 @@ import type { Games } from "../hooks/useGames";
 import PlatformIconsList from "./PlatformIconsList";
 import CriticScore from "./CriticScore";
 import Emoji from "./Emoji";
+import { Link } from "react-router-dom";
 interface Props {
   game: Games;
 }
@@ -16,8 +17,8 @@ function GameCard({ game }: Props) {
       mb={4}
       boxSize={"300px"}
       ml={10}
-
-    // width={"300px"}
+     
+      // width={"300px"}
     >
       <Image
         objectFit={"cover"}
@@ -27,7 +28,7 @@ function GameCard({ game }: Props) {
         height="200px"
       />
       <Box p="4">
-        <HStack justifyContent={"space-between"} >
+        <HStack justifyContent={"space-between"}>
           {
             <PlatformIconsList
               platforms={game.parent_platforms.map((p) => p.platform)}
@@ -37,7 +38,8 @@ function GameCard({ game }: Props) {
           <CriticScore score={game.metacritic}></CriticScore>
         </HStack>
         <Heading mt={1} size="md">
-          {game.name} <Emoji rating={game.rating_top} />{" "}
+         <Link to={'/games/' + game.slug}>{game.name}</Link> 
+           <Emoji rating={game.rating_top} />{" "}
         </Heading>
       </Box>
     </Card.Root>
