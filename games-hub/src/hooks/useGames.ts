@@ -3,16 +3,24 @@ import apiClient, { type FetchResponse } from "@/services/api-client";
 
 import useGameQueryStore from "@/store";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import type { Genre } from "./useGenres";
 
 export interface Platform {
   id: number;
   name: string;
   slug: string;
 }
+
+interface publisher{
+  id:number;
+  name:string;
+}
 export interface Games {
   id: number;
   name: string;
   slug:string ;
+  genres:Genre[];
+  publishers:publisher[]
   background_image: string;
   parent_platforms: { platform: Platform }[];
   metacritic: number;

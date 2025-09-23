@@ -9,7 +9,7 @@ const selectedGenreId=useGameQueryStore(s=>s.gameQuery.genreId)
 const setGenreId =useGameQueryStore(s=>s.setGenreId)
   const { data , isLoading ,error } = useGenres();
   if (error) return null;
-  if (isLoading) return <Spinner padding={"5px"} margin={"10px"} />;
+  if (isLoading) return <Spinner size={"xl"} padding={"5px"} margin={"10px"} mt={40} />;
   return (
     <>
     <Heading as={"h1"} margin={"15px"}>Genres</Heading>
