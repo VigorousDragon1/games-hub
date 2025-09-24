@@ -20,7 +20,8 @@ export interface Games {
   name: string;
   slug:string ;
   genres:Genre[];
-  publishers:publisher[]
+  publishers:publisher[];
+  
   background_image: string;
   parent_platforms: { platform: Platform }[];
   metacritic: number;

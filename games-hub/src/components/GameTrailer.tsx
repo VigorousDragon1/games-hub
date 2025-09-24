@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Spinner, Text, HStack, VStack, Image, Button } from "@chakra-ui/react";
+import { Spinner, Text, HStack, VStack, Image } from "@chakra-ui/react";
 import useTrailer from "@/hooks/useTrailer";
 
 interface Props {
