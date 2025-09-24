@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Spinner, Text, HStack, VStack, Image } from "@chakra-ui/react";
+import { Spinner, Text, VStack } from "@chakra-ui/react";
 import useTrailer from "@/hooks/useTrailer";
 
 interface Props {
@@ -8,7 +7,6 @@ interface Props {
 
 function GameTrailer({ gameId }: Props) {
   const { data, error, isLoading } = useTrailer(gameId);
-  const [selected, setSelected] = useState<number>(0); // index of selected trailer
 
   if (isLoading) return <Spinner />;
   if (error) throw error;
@@ -17,41 +15,19 @@ function GameTrailer({ gameId }: Props) {
     return <Text>No trailers available</Text>;
   }
 
-  const activeTrailer = data[selected];
+  const firstTrailer = data[0];
 
   return (
-    <VStack align="stretch" spacing={4}>
-      {/* Active trailer player */}
+    <VStack align="stretch">
       <video
-        src={activeTrailer.data["480"]}
-        poster={activeTrailer.preview}
+        src={firstTrailer.data["480"]}
+        poster={firstTrailer.preview}
         controls
         width="100%"
       />
-
-      {/* Trailer selector thumbnails */}
-      <HStack spacing={4} overflowX="auto">
-        {data.map((trailer, index) => (
-          <VStack
-            key={trailer.id}
-            spacing={1}
-            cursor="pointer"
-            onClick={() => setSelected(index)}
-          >
-            <Image
-              src={trailer.preview}
-              alt={trailer.name}
-              boxSize="120px"
-              objectFit="cover"
-              border={index === selected ? "2px solid #3182CE" : "2px solid transparent"}
-              borderRadius="md"
-            />
-            <Text fontSize="sm" noOfLines={1} maxW="120px">
-              {trailer.name}
-            </Text>
-          </VStack>
-        ))}
-      </HStack>
+      <Text fontSize="sm" mt={2}>
+        {firstTrailer.name}
+      </Text>
     </VStack>
   );
 }
